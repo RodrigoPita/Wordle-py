@@ -64,7 +64,7 @@ def displayAttempts(attempts:list = [], round:int = 6) -> None:
                 l = colorLetter( l[0], l[1] )
             print( f'{l}', end = '\u001b[37m ' )
         print() # apenas uma quebra de linha
-    #if ( round < 6 ): print( f'{round+1}: _ _ _ _ _')
+    if ( round < 6 ): print( f'{round+1}: _ _ _ _ _')
 
 def colorLetter( l:str, token:str ) -> str:
     '''Colore a letra l de acordo com o token'''
@@ -92,7 +92,6 @@ def checkRepetitions( position_colors:list, victory_word:str, repeated_letters:l
                     repeated_letters.remove( position_colors[i][0] )
                     position_colors[i] = position_colors[i][0]
     return repeated_letters, position_colors
-
 
 def analyzeLetterPosition( guess_letter:str, victory_letter:str, victory_word:str, repeated_letters:list ) -> str:
     '''Atrela tokens nas letras que seguirem os padroes abaixo
@@ -129,8 +128,8 @@ def finalMessage( guess:list , chosen_word:str, w_display:str , round:int, start
     '''Imprime a mensagem final do jogo'''
     elapsed_time = stopWatch( start_time, time() )
     formatted_time = formatTime( elapsed_time )
-    if ( guess == chosen_word ): print( f'\nParabéns, você acertou em {round} tentativas no período de {formatted_time} minutos')
-    else: print( f'\nA palavra era {w_display}, mais sorte da próxima vez')
+    if ( guess == chosen_word ): print( f'\n\u001b[32mParabéns, você acertou em {round} tentativas no período de {formatted_time} minutos!\u001b[37m')
+    else: print( f'\n\u001b[31mA palavra era {w_display}, mais sorte da próxima vez!\u001b[37m')
 
 def reduceAlphabet( letters:list, used_letters:list ) -> list:
     '''Retira da lista de letras possiveis
@@ -170,7 +169,11 @@ def getDisplayableFormat( chosen_word:str ) -> str:
 def getPlayerGuess( round:int ) -> str :
     '''Recebe o palpite do jogador'''
     guess = input( f'\nTentativa {round}: ').upper()
-    while ( guess not in words ): guess = input( f'Tentativa {round}: ').upper()
+    while ( guess not in words ): 
+        print( f'\n\u001b[31m---------------------------------------' +
+                '\n-- Palavra inválida, tente outra vez --' +
+                '\n---------------------------------------\u001b[37m\n' )
+        guess = input( f'Tentativa {round}: ').upper()
     return guess
 
 def processRoundsGuess( chosen_word:str ) -> tuple:
