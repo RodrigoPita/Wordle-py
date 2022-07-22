@@ -1,7 +1,7 @@
 # Wordle-py
 Implementação do <a href="https://term.ooo/">Termo</a>, que por sua vez foi inspirado na versão original, em inglês, <a href="https://www.nytimes.com/games/wordle/index.html">Wordle</a>.
 <br>
-O jogo fez parte de um trabalho da disciplina eletiva Sistemas Distribuiídos, pela professora Silvana Rossetto.
+O jogo fez parte de um trabalho da disciplina eletiva Sistemas Distribuiídos (2022.1), pela professora Silvana Rossetto.
 <br>
 Os integrantes desse trabalho em grupo são:
 
