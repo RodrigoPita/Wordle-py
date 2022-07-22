@@ -1,2 +1,2 @@
 # Wordle-py
-UFRJ_BCC_2022.1
+Implementação do <a href="https://term.ooo/">Termo</a>, que por sua vez foi inspirado na versão original, em inglês, <a href="https://www.nytimes.com/games/wordle/index.html">Wordle</a>
