@@ -128,7 +128,8 @@ def finalMessage( guess:list , chosen_word:str, w_display:str , round:int, start
     '''Imprime a mensagem final do jogo'''
     elapsed_time = stopWatch( start_time, time() )
     formatted_time = formatTime( elapsed_time )
-    if ( guess == chosen_word ): print( f'\n\u001b[32mParabéns, você acertou em {round} tentativas no período de {formatted_time} minutos!\u001b[37m')
+    if ( formatted_time[0] == '0' ): print( f'\n\u001b[32mParabéns, você acertou em {round} tentativas no período de {formatted_time} segundos!\u001b[37m')
+    elif ( guess == chosen_word ): print( f'\n\u001b[32mParabéns, você acertou em {round} tentativas no período de {formatted_time} minutos!\u001b[37m')
     else: print( f'\n\u001b[31mA palavra era {w_display}, mais sorte da próxima vez!\u001b[37m')
 
 def reduceAlphabet( letters:list, used_letters:list ) -> list:
@@ -158,6 +159,7 @@ def formatTime( t:float ) -> str:
     minutes = floor( t )
     frac = t - minutes
     seconds = round( frac * 60 )
+    if ( seconds < 10 ): return str( minutes ) + ':0' + str( seconds )
     return str( minutes ) + ':' + str( seconds )
 
 def getDisplayableFormat( chosen_word:str ) -> str:
@@ -187,15 +189,17 @@ def processRoundsGuess( chosen_word:str ) -> tuple:
         result = analyzeWord( guess, chosen_word )
         possible_letters = reduceAlphabet( possible_letters, result )
         attempts.append( result )
+        if ( guess == chosen_word ): 
+            displayAttempts( attempts )
+            break
         displayAttempts( attempts, round )
-        if ( guess == chosen_word ): break
     return round, start, guess
 
 def beginGame():
     '''Da inicio ao jogo'''
     chosen_word = chooseWord( playable_words )
-    chosen_word_display = getDisplayableFormat(chosen_word)
-    final_round, start, guess = processRoundsGuess(chosen_word)
+    chosen_word_display = getDisplayableFormat( chosen_word )
+    final_round, start, guess = processRoundsGuess( chosen_word )
     finalMessage( guess, chosen_word ,chosen_word_display, final_round, start )
 
 def main():
